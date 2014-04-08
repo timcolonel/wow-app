@@ -10,4 +10,20 @@ class Wow::PackageVersion < ActiveRecord::Base
   def to_s
     "#{package} #{version}"
   end
+
+
+  def self.create_from_file(file)
+    save_file(file)
+  end
+
+  def self.save_file(file)
+    save_file_local(file)
+  end
+
+  def self.save_file_local(file)
+    name = file.original_filename
+    path = File.join(Settings.local_file['directory'], name)
+    FileUtils.mkdir_p(Settings.local_file['directory'])
+    File.open(path, 'w') { |f| f.write(file.read) }
+  end
 end

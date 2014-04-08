@@ -1,14 +1,17 @@
 WowApp::Application.routes.draw do
 
-  get "welcome_controller/index"
-  devise_for :users
+
+  get 'welcome/index'
+  devise_for :users, :controllers => {:sessions => 'sessions'}
   mount RailsAdmin::Engine => '/admin', :as => 'rails_admin'
 
-  # The priority is based upon order of creation: first created -> highest priority.
-  # See how all your routes lay out with "rake routes".
 
-  # You can have the root of your site routed with "root"
-  # root 'welcome#index'
+  get 'authenticity_token' => 'welcome#authenticity_token', :as => :authenticity_token
+
+  get 'package/version/index' => 'wow/package_version#index', :as => :wow_package_version
+  get 'package/version/upload' => 'wow/package_version#new', :as => :wow_package_version_upload
+  post 'package/version/upload' => 'wow/package_version#create'
+  root 'welcome#index'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

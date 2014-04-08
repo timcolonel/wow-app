@@ -1,0 +1,2 @@
+module Wow::PackageVersionHelper
+end
