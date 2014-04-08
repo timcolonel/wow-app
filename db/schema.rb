@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140408001118) do
+ActiveRecord::Schema.define(version: 20140408155912) do
 
   create_table "users", force: true do |t|
     t.string   "email",                  default: "", null: false
@@ -30,5 +30,37 @@ ActiveRecord::Schema.define(version: 20140408001118) do
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
+
+  create_table "wow_package_platforms", force: true do |t|
+    t.string   "name"
+    t.integer  "parent_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "wow_package_platforms", ["parent_id"], name: "index_wow_package_platforms_on_parent_id", using: :btree
+
+  create_table "wow_package_versions", force: true do |t|
+    t.string   "version"
+    t.integer  "package_id"
+    t.integer  "platform_id"
+    t.string   "link"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "wow_package_versions", ["package_id"], name: "index_wow_package_versions_on_package_id", using: :btree
+  add_index "wow_package_versions", ["platform_id"], name: "index_wow_package_versions_on_platform_id", using: :btree
+
+  create_table "wow_packages", force: true do |t|
+    t.string   "name"
+    t.text     "description"
+    t.string   "homepage"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "wow_packages", ["user_id"], name: "index_wow_packages_on_user_id", using: :btree
 
 end

@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  version: MyString
+  platform_id: 
+  link: MyString
+
+two:
+  version: MyString
+  platform_id: 
+  link: MyString
