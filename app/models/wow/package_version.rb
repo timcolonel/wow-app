@@ -11,11 +11,12 @@ class Wow::PackageVersion < ActiveRecord::Base
     "#{package} #{version}"
   end
 
-  def self.create_from_file(file)
-    save_file(file)
-  end
-
-  def self.save_file(file)
+  def self.create_from_file(user, file)
+    config = parse_config(file)
+    package = Wow::Package.where(:name => config['name'])
+    if package.nil?
+      package = Wow::Package.create_from_config(user, config)
+    end
     save_file_local(file)
   end
 
@@ -24,10 +25,17 @@ class Wow::PackageVersion < ActiveRecord::Base
     path = File.join(Settings.local_file['directory'], name)
     FileUtils.mkdir_p(Settings.local_file['directory'])
     File.open(path, 'wb') { |f| f.write(file.read) }
-    tar_extract = Gem::Package::TarReader.new(Zlib::GzipReader.open(path))
+  end
+
+  def parse_config(file)
+    result = {}
+    tar_extract = Gem::Package::TarReader.new(Zlib::GzipReader.open(file.tempfile))
     tar_extract.each do |filename|
-      puts filename.full_name
+      if filename == 'wow.yml'
+        result = YAML.load(file.read)
+      end
     end
     tar_extract.close
+    result
   end
 end

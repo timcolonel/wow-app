@@ -8,4 +8,15 @@ class Wow::Package < ActiveRecord::Base
 
   validates_uniqueness_of :name
 
+  #Create the package from the yml config file
+  #+user+ is the user who created the package
+  #The param +config+ is a hash
+  def self.create_from_config(user, config)
+    package == Wow::Package.new
+    package.name = config['name']
+    package.description = config['description']
+    package.homepage = config['homepage']
+    package.user = user
+    package.save
+  end
 end
