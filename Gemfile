@@ -51,3 +51,7 @@ gem 'mysql2', '0.3.11'
 gem 'rails_admin'
 
 gem 'devise'
+
+gem 'bootstrap-sass'
+
+gem 'thin'
