@@ -43,3 +43,11 @@ end
 
 # Use debugger
 # gem 'debugger', group: [:development, :test]
+
+gem 'rails_config'
+
+gem 'mysql2', '0.3.11'
+
+gem 'rails_admin'
+
+gem 'devise'
