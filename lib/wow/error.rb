@@ -1,5 +1,5 @@
 module Wow
-  class Error < Error
+  class Error < StandardError
 
   end
 end

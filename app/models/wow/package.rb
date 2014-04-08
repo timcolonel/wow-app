@@ -12,11 +12,15 @@ class Wow::Package < ActiveRecord::Base
   #+user+ is the user who created the package
   #The param +config+ is a hash
   def self.create_from_config(user, config)
-    package == Wow::Package.new
+    package = Wow::Package.new
     package.name = config['name']
     package.description = config['description']
     package.homepage = config['homepage']
     package.user = user
-    package.save
+    if package.save
+      package
+    else
+      raise Wow::Error, package.errors.full_messages.to_s
+    end
   end
 end

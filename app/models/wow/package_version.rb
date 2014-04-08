@@ -15,12 +15,13 @@ class Wow::PackageVersion < ActiveRecord::Base
 
   def self.create_from_file(user, file)
     config = parse_config(file)
+    puts config
     package = get_package(user, config)
     package_version = Wow::PackageVersion.new
     package_version.version = config['version']
     package_version.package = package
     package_version.platform = Wow::PackagePlatform.get_from_file(file)
-    package_version.link = ''
+    package_version.link = 'tmp'
     raise Wow::Error, package_version.errors.full_messages.to_s unless package_version.valid?
     #Then save the file if everything worked fine
     package_version.link = save_file_local(file)
@@ -37,9 +38,9 @@ class Wow::PackageVersion < ActiveRecord::Base
   def self.parse_config(file)
     result = {}
     tar_extract = Gem::Package::TarReader.new(Zlib::GzipReader.open(file.tempfile))
-    tar_extract.each do |filename|
-      if filename == 'wow.yml'
-        result = YAML.load(file.read)
+    tar_extract.each do |tarentity|
+      if tarentity.full_name == 'wow.yml'
+        result = YAML.load(tarentity.read)
       end
     end
     tar_extract.close
@@ -47,9 +48,11 @@ class Wow::PackageVersion < ActiveRecord::Base
   end
 
   def self.get_package(user, config)
-    package = Wow::Package.where(:name => config['name'])
+    package = Wow::Package.where(:name => config['name']).first
     if package.nil?
       package = Wow::Package.create_from_config(user, config)
+
     end
+    package
   end
 end
