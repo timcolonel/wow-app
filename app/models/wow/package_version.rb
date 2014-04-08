@@ -28,11 +28,13 @@ class Wow::PackageVersion < ActiveRecord::Base
     package_version.save!
   end
 
+  #Save the file in local and return the path
   def self.save_file_local(file)
     name = file.original_filename
     path = File.join(Settings.local_file['directory'], name)
     FileUtils.mkdir_p(Settings.local_file['directory'])
     File.open(path, 'wb') { |f| f.write(file.read) }
+    path
   end
 
   def self.parse_config(file)
