@@ -11,7 +11,6 @@ class Wow::PackageVersion < ActiveRecord::Base
     "#{package} #{version}"
   end
 
-
   def self.create_from_file(file)
     save_file(file)
   end
@@ -24,6 +23,11 @@ class Wow::PackageVersion < ActiveRecord::Base
     name = file.original_filename
     path = File.join(Settings.local_file['directory'], name)
     FileUtils.mkdir_p(Settings.local_file['directory'])
-    File.open(path, 'w') { |f| f.write(file.read) }
+    File.open(path, 'wb') { |f| f.write(file.read) }
+    tar_extract = Gem::Package::TarReader.new(Zlib::GzipReader.open(path))
+    tar_extract.each do |filename|
+      puts filename.full_name
+    end
+    tar_extract.close
   end
 end
