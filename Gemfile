@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.0.4'
+gem 'rails', '4.1.0'
 
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3'
@@ -46,7 +46,7 @@ end
 
 gem 'rails_config'
 
-gem 'mysql2', '0.3.11'
+gem 'mysql2', '0.3.15'
 
 gem 'rails_admin'
 
@@ -55,3 +55,5 @@ gem 'devise'
 gem 'bootstrap-sass'
 
 gem 'thin'
+
+gem 'tzinfo-data'
