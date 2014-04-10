@@ -17,9 +17,8 @@
 
 .idea/
 
-config/settings.local.yml
-config/settings/*.local.yml
-config/environments/*.local.yml
 config/secrets.yml
 
 data/
+# Ignore application configuration
+/config/application.yml

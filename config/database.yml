@@ -3,8 +3,8 @@ development:
   encoding: utf8
   database: wow-app_development
   pool: 5
-  username: <%= Settings.database['RAILS_DB_USERNAME'] %>
-  password: <%= Settings.database['RAILS_DB_PASSWORD'] %>
+  username: <%= ENV['RAILS_DB_USERNAME'] %>
+  password: <%= ENV['RAILS_DB_PASSWORD'] %>
   socket: /var/run/mysqld/mysqld.sock
   host: 127.0.0.1
 
@@ -17,8 +17,8 @@ test:
   encoding: utf8
   database: wow-app_test
   pool: 5
-  username: <%= Settings.database['RAILS_DB_USERNAME'] %>
-  password: <%= Settings.database['RAILS_DB_PASSWORD'] %>
+  username: <%= ENV['RAILS_DB_USERNAME'] %>
+  password: <%= ENV['RAILS_DB_PASSWORD'] %>
   socket: /var/run/mysqld/mysqld.sock
   host: 127.0.0.1
 
@@ -27,6 +27,6 @@ production:
   encoding: utf8
   database: wow-app_production
   pool: 5
-  username: <%= Settings.database['RAILS_DB_USERNAME'] %>
-  password: <%= Settings.database['RAILS_DB_PASSWORD'] %>
+  username: <%= ENV['RAILS_DB_USERNAME'] %>
+  password: <%= ENV['RAILS_DB_PASSWORD'] %>
   socket: /var/run/mysqld/mysqld.sock

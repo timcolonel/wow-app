@@ -44,7 +44,7 @@ end
 # Use debugger
 # gem 'debugger', group: [:development, :test]
 
-gem 'rails_config'
+gem 'figaro'
 
 gem 'mysql2', '0.3.15'
 

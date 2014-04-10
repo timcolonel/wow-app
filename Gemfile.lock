@@ -51,6 +51,9 @@ GEM
     eventmachine (1.0.3)
     eventmachine (1.0.3-x86-mingw32)
     execjs (2.0.2)
+    figaro (0.7.0)
+      bundler (~> 1.0)
+      rails (>= 3, < 5)
     font-awesome-rails (4.0.3.1)
       railties (>= 3.2, < 5.0)
     haml (4.0.5)
@@ -114,8 +117,6 @@ GEM
       remotipart (~> 1.0)
       safe_yaml (~> 1.0)
       sass-rails (~> 4.0)
-    rails_config (0.3.3)
-      activesupport (>= 3.0)
     railties (4.1.0)
       actionpack (= 4.1.0)
       activesupport (= 4.1.0)
@@ -175,12 +176,12 @@ DEPENDENCIES
   bootstrap-sass
   coffee-rails (~> 4.0.0)
   devise
+  figaro
   jbuilder (~> 1.2)
   jquery-rails
   mysql2 (= 0.3.15)
   rails (= 4.1.0)
   rails_admin
-  rails_config
   sass-rails (~> 4.0.2)
   sdoc
   sqlite3

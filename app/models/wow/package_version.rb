@@ -31,8 +31,8 @@ class Wow::PackageVersion < ActiveRecord::Base
   #Save the file in local and return the path
   def self.save_file_local(file)
     name = file.original_filename
-    path = File.join(Settings.local_file['directory'], name)
-    FileUtils.mkdir_p(Settings.local_file['directory'])
+    path = File.join(Figaro.env['local_file']['directory'], name)
+    FileUtils.mkdir_p(Figaro.env['local_file'])
     File.open(path, 'wb') { |f| f.write(file.read) }
     path
   end
