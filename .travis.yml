@@ -1,7 +1,7 @@
 language: ruby
 
 before_script:
-  - mysql -e 'create database wow-app_test;'
+  - mysql -e 'create database `wow-app_test`;'
 
 
 rvm:
