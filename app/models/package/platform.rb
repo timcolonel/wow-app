@@ -1,5 +1,5 @@
-class Wow::PackagePlatform < ActiveRecord::Base
-  belongs_to :parent, :class_name => Wow::PackagePlatform
+class Package::Platform < ActiveRecord::Base
+  belongs_to :parent, Wow::Package::Platform
 
   validates_presence_of :name
 
@@ -11,7 +11,7 @@ class Wow::PackagePlatform < ActiveRecord::Base
     if array.size == 3
       name == array[1]
     end
-    platform = Wow::PackagePlatform.where(:name => name).first
+    platform = Package::Platform.where(name: name).first
     raise Wow::Error, "Unknown platform `#{name}`!" if platform.nil?
     platform
   end

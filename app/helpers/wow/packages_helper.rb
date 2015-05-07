@@ -1,0 +1,2 @@
+module Wow::PackagesHelper
+end

@@ -17,8 +17,6 @@
 
 .idea/
 
-config/secrets.yml
-
 data/
 # Ignore application configuration
 /config/application.yml

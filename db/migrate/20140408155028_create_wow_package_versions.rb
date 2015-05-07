@@ -1,6 +1,6 @@
 class CreateWowPackageVersions < ActiveRecord::Migration
   def change
-    create_table :wow_package_versions do |t|
+    create_table :package_versions do |t|
       t.string :version
       t.references :package, index: true
       t.references :platform, index: true

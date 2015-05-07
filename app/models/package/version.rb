@@ -1,6 +1,6 @@
-class Wow::PackageVersion < ActiveRecord::Base
-  belongs_to :package, :class_name => Wow::Package
-  belongs_to :platform, :class_name => Wow::PackagePlatform
+class Package::Version < ActiveRecord::Base
+  belongs_to :package, class_name: Package
+  belongs_to :platform, class_name: Package::Platform
 
   validates_presence_of :version
   validates_presence_of :link

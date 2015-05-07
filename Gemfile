@@ -3,9 +3,6 @@ source 'https://rubygems.org'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.1.0'
 
-# Use sqlite3 as the database for Active Record
-gem 'sqlite3'
-
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.2'
 
@@ -46,7 +43,7 @@ end
 
 gem 'figaro'
 
-gem 'mysql2', '0.3.15'
+gem 'mysql2'
 
 gem 'rails_admin'
 
@@ -57,3 +54,25 @@ gem 'bootstrap-sass'
 gem 'thin'
 
 gem 'tzinfo-data'
+
+gem 'psych'
+
+gem 'slim'
+gem 'slim-rails'
+
+
+gem 'cancancan', git: 'https://github.com/timcolonel/cancancan.git'
+if ENV['WOW']
+  gem 'wow', path: ENV['WOW']
+else
+  gem 'wow', git: 'https://github.com/timcolonel/wow.git', group: :production, group: :test
+end
+
+group :development do
+  gem 'quiet_assets'
+  gem 'better_errors'
+
+end
+
+gem 'factory_girl_rails', group: :test
+gem 'faker', group: :test
