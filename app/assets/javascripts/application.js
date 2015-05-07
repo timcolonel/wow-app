@@ -17,12 +17,26 @@
 //= require bootstrap
 
 var content = $('#content');
-$.post('http://localhost:3000/api/v1/packages', {
-    'name': 'somevalue1',
-    'homepage': 'htpp://example.com',
-    'short_description': 'Short desc',
-    'description': 'somevalue2'//,authors: ['author1', 'author2']
-}, null, 'json').done(function (data) {
+$.ajax({
+    type: "POST",
+    url: 'http://localhost:3000/api/v1/packages',
+    dataType: 'json',
+    contentType: 'application/json',
+    data: JSON.stringify({
+        'name': 'somevalue7',
+        'homepage': 'htpp://example.com',
+        'short_description': 'Short desc',
+        'description': 'somevalue2',
+        'authors': [
+            {name: 'name', email: 'Some email'},
+            {name: 'name2', email: 'Some email2'}]
+
+    })
+}).done(function (data) {
     content.text(data);
     console.log(data);
+}).fail(function (error, status, errorCode) {
+    console.log('Error:');
+    console.error(errorCode);
+    console.error(error.responseJSON);
 });
