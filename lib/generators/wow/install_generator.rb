@@ -14,7 +14,7 @@ module Wow
       config.each do |k, v|
         config[k] = ask_for(k.to_s.humanize, v)
       end
-      template 'local_env_initializer.yml.erb', 'config/local/local_env.yml', config
+      template 'local_env_initializer.yml.erb', 'config/application.yml', config
     end
   end
 end
