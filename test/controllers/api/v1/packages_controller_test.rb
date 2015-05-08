@@ -6,6 +6,19 @@ class Api::V1::PackagesControllerTest < ActionController::TestCase
     assert_json_response :success
   end
 
+  test 'test pagination' do
+    FactoryGirl.create_list(:package, 3)
+    get :index, per_page: 2
+    assert_json_response :success
+    json = json_response
+    assert_equal 2, json.size
+
+    get :index, per_page: 2, page: 2
+    assert_json_response :success
+    json = json_response
+    assert_equal 1, json.size
+  end
+
   test 'should get new package' do
     package = FactoryGirl.create(:package)
     get :show, id: package.id

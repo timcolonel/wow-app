@@ -23,13 +23,14 @@ $.ajax({
     dataType: 'json',
     contentType: 'application/json',
     data: JSON.stringify({
-        'name': 'somevalue7',
+        'name': 'somevalue10',
         'homepage': 'htpp://example.com',
         'short_description': 'Short desc',
         'description': 'somevalue2',
         'authors': [
             {name: 'name', email: 'Some email'},
-            {name: 'name2', email: 'Some email2'}]
+            {name: 'name2', email: 'Some email2'}],
+        'tags': ['tag1', 'tag2']
 
     })
 }).done(function (data) {

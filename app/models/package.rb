@@ -2,6 +2,8 @@ class Package < ActiveRecord::Base
   belongs_to :user, class_name: User
   has_many :authors, class_name: 'Package::Author', dependent: :destroy
 
+  has_and_belongs_to_many :tags, class_name: 'Package::Tag'
+
   accepts_nested_attributes_for :authors
 
   validates_presence_of :name
@@ -37,5 +39,18 @@ class Package < ActiveRecord::Base
       end
     end
     self.authors.where.not(id: ids).destroy_all
+  end
+
+  def tags=(tags)
+    return if tags.nil?
+    association(:tags).writer([])
+    tags.each do |tag_name|
+      if tag_name.is_a? Package::Tag
+        tag = tag_name
+      else
+        tag = Package::Tag.find_or_create_by(name: tag_name)
+      end
+      self.tags << tag
+    end
   end
 end
