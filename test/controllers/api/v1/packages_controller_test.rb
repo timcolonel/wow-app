@@ -45,12 +45,44 @@ class Api::V1::PackagesControllerTest < ActionController::TestCase
                    homepage: Faker::Internet.url,
                    short_description: Faker::Lorem.sentence,
                    description: Faker::Lorem.paragraph}
-    post :update, new_package.merge(id: package.id)
+    authors = [{name: 'Author 1', email: Faker::Internet.email}, {name: 'Author 2', email: Faker::Internet.email}]
+    post :update, new_package.merge(id: package.id, authors: authors)
     assert_json_response :success
     json = json_response
     assert_equal package.id, json[:id]
     new_package.each do |k, v|
       assert_equal new_package[k], v
+    end
+
+    assert_not_nil json[:authors]
+    assert_equal authors.size, json[:authors].size
+    authors.each_with_index do |author_hash, i|
+      assert_equal author_hash[:name], json[:authors][i][:name]
+      assert_equal author_hash[:email], json[:authors][i][:email]
+    end
+  end
+
+  test 'update package without authors params should keep existing authors' do
+    package = FactoryGirl.create(:package)
+    authors = package.authors.to_a
+    new_package = {name: Faker::App.name}
+    post :update, new_package.merge(id: package.id)
+    assert_json_response :success
+    json = json_response
+
+    assert_not_nil json[:authors]
+    assert_equal authors.size, authors.size
+    authors.each_with_index do |author, i|
+      assert_equal author.name, json[:authors][i][:name]
+      assert_equal author.email, json[:authors][i][:email]
+    end
+  end
+
+
+  test 'should destroy package' do
+    package = FactoryGirl.create(:package)
+    assert_difference 'Package.count', -1 do
+      post :destroy, id: package.id
     end
   end
 end

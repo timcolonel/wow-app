@@ -5,5 +5,9 @@ FactoryGirl.define do
     short_description { Faker::Lorem.sentence }
     description { Faker::Lorem.paragraph }
     association :user
+
+    after(:create) do |package|
+      package.authors << create(:package_author)
+    end
   end
 end

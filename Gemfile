@@ -60,8 +60,10 @@ gem 'psych'
 gem 'slim'
 gem 'slim-rails'
 
+gem 'kaminari'
 
 gem 'cancancan', git: 'https://github.com/timcolonel/cancancan.git'
+
 if ENV['WOW']
   gem 'wow', path: ENV['WOW']
 else

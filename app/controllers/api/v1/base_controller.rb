@@ -1,17 +1,18 @@
 module Api::V1
   class BaseController < Api::BaseController
     load_and_authorize_resource
-    # before_action :set_resource, only: [:destroy, :show, :update]
 
 
     # # GET /api/v1/{plural_resource_name}
     def index
+      set_resources get_resources.page(params[:page]).per(params[:per_page])
     end
 
-    # GET /api/v1/{plural_resource_name}/1
+    # GET /api/v1/{plural_resource_name}/:id
     def show
     end
 
+    # POST /api/v1/{plural_resource_name}
     def create
       if get_resource.save
         render :show, status: :created
@@ -21,7 +22,7 @@ module Api::V1
     end
 
 
-    # PATCH/PUT /api/v1/{plural_resource_name}/1
+    # PATCH/PUT /api/v1/{plural_resource_name}/:id
     def update
       if get_resource.update(resource_params)
         render :show
@@ -30,14 +31,14 @@ module Api::V1
       end
     end
 
-    #
-    # # DELETE /api/v1/{plural_resource_name}/1
-    # def destroy
-    #   get_resource.destroy
-    #   head :no_content
-    # end
-    #
-    # private
+
+    # DELETE /api/v1/{plural_resource_name}/:id
+    def destroy
+      get_resource.destroy
+      head :no_content
+    end
+
+    protected
 
     # Returns the resource from the created instance variable
     # @return [Object]
@@ -62,7 +63,7 @@ module Api::V1
     # Returns the allowed parameters for pagination
     # @return [Hash]
     def page_params
-      params.permit(:page, :page_size)
+      params.permit(:page, :per_page)
     end
 
     # The resource class based on the controller
@@ -90,6 +91,12 @@ module Api::V1
     def set_resource(resource = nil)
       resource ||= resource_class.find(params[:id])
       instance_variable_set("@#{resource_name}", resource)
+    end
+
+    # Set the resources for the controller
+    # @return [Object]
+    def set_resources(resources)
+      instance_variable_set("@#{resource_name.pluralize}", resources)
     end
   end
 end
