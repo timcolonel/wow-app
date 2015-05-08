@@ -20,12 +20,22 @@ class Api::V1::PackagesControllerTest < ActionController::TestCase
                homepage: Faker::Internet.url,
                short_description: Faker::Lorem.sentence,
                description: Faker::Lorem.paragraph}
-    post :create, package: package
-    assert_json_response :success
+    authors = [{name: 'Author 1', email: Faker::Internet.email}, {name: 'Author 2', email: Faker::Internet.email}]
+    assert_difference 'Package.count' do
+      post :create, package.merge(authors: authors)
+      assert_json_response :success
+    end
     json = json_response
     assert_not_nil json[:id]
     package.each do |k, v|
       assert_equal package[k], v
+    end
+
+    assert_not_nil json[:authors]
+    assert_equal authors.size, json[:authors].size
+    authors.each_with_index do |author_hash, i|
+      assert_equal author_hash[:name], json[:authors][i][:name]
+      assert_equal author_hash[:email], json[:authors][i][:email]
     end
   end
 
@@ -34,8 +44,8 @@ class Api::V1::PackagesControllerTest < ActionController::TestCase
     new_package = {name: Faker::App.name,
                    homepage: Faker::Internet.url,
                    short_description: Faker::Lorem.sentence,
-                   description: Faker::Lorem.paragraph, }
-    post :update, package: new_package, id: package.id
+                   description: Faker::Lorem.paragraph}
+    post :update, new_package.merge(id: package.id)
     assert_json_response :success
     json = json_response
     assert_equal package.id, json[:id]

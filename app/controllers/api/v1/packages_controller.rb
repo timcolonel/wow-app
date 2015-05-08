@@ -1,13 +1,15 @@
 class Api::V1::PackagesController < Api::V1::BaseController
+  wrap_parameters :package, include: Package.attribute_names.map(&:to_sym).concat([:authors])
 
   def index
-    render :index
+  end
+
+  def show
   end
 
   def create
-    update_authors
+    # @package.authors = params[:authors]
     super
-    # render json: {success: true}
   end
 
   private
@@ -29,8 +31,8 @@ class Api::V1::PackagesController < Api::V1::BaseController
   end
 
   def package_params
-    # params.permit(:name, :short_description, :homepage, :description, {authors: []}).merge(user_id: current_user.id)
-     params.require(:package).permit(:name, :short_description, :homepage, :description, {authors: []}).merge(user_id: current_user.id)
+    params.permit(:name, :short_description, :homepage, :description, authors: [:name, :email]).merge(user_id: current_user.id)
+    # params.require(:package).permit(:name, :short_description, :homepage, :description, {authors: []}).merge(user_id: current_user.id)
   end
 
   def query_params
