@@ -19,7 +19,7 @@ class Api::V1::PackagesControllerTest < ActionController::TestCase
     assert_equal 1, json.size
   end
 
-  test 'should get new package' do
+  test 'should get existing package' do
     package = FactoryGirl.create(:package)
     get :show, id: package.id
     assert_json_response :success

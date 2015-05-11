@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150508140111) do
+ActiveRecord::Schema.define(version: 20150511141444) do
 
   create_table "package_authors", force: :cascade do |t|
     t.integer  "package_id", limit: 4
@@ -31,19 +31,6 @@ ActiveRecord::Schema.define(version: 20150508140111) do
   end
 
   add_index "package_platforms", ["parent_id"], name: "index_package_platforms_on_parent_id", using: :btree
-
-  create_table "package_tags", force: :cascade do |t|
-    t.string   "name",       limit: 255
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "package_tags_packages", force: :cascade do |t|
-    t.integer  "package_id", limit: 4
-    t.integer  "tag_id",     limit: 4
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
 
   create_table "package_versions", force: :cascade do |t|
     t.string   "version",     limit: 255
@@ -67,7 +54,20 @@ ActiveRecord::Schema.define(version: 20150508140111) do
     t.datetime "updated_at"
   end
 
-  add_index "packages", ["user_id"], name: "index_package_packages_on_user_id", using: :btree
+  add_index "packages", ["user_id"], name: "index_packages_on_user_id", using: :btree
+
+  create_table "packages_tags", force: :cascade do |t|
+    t.integer  "package_id", limit: 4
+    t.integer  "tag_id",     limit: 4
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "tags", force: :cascade do |t|
+    t.string   "name",       limit: 255
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  limit: 255, default: "", null: false

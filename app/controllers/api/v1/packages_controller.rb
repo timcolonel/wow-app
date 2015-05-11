@@ -1,6 +1,4 @@
 class Api::V1::PackagesController < Api::V1::BaseController
-  wrap_parameters :package, include: Package.attribute_names.map(&:to_sym).concat([:authors])
-
   private
 
   def package_params

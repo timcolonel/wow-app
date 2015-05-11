@@ -1,0 +1,1 @@
+json.array! @tags, partial: 'show', as: :tag

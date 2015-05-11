@@ -1,3 +1,3 @@
-class Package::Tag < ActiveRecord::Base
+class Tag < ActiveRecord::Base
   validates :name, uniqueness: true
 end

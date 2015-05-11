@@ -16,6 +16,7 @@ WowApp::Application.routes.draw do
   namespace :api do
     scope path: :v1, module: :v1 do
       resources :packages, except: [:new, :edit]
+      resources :tags, except: [:new, :edit]
     end
   end
 

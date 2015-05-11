@@ -9,5 +9,9 @@ FactoryGirl.define do
     after(:create) do |package|
       package.authors << create(:package_author)
     end
+
+    after(:create) do |package|
+      package.tags << create(:tag)
+    end
   end
 end

@@ -2,7 +2,7 @@ class Package < ActiveRecord::Base
   belongs_to :user, class_name: User
   has_many :authors, class_name: 'Package::Author', dependent: :destroy
 
-  has_and_belongs_to_many :tags, class_name: 'Package::Tag'
+  has_and_belongs_to_many :tags, class_name: 'Tag'
 
   accepts_nested_attributes_for :authors
 
