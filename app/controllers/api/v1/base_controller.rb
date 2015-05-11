@@ -1,7 +1,11 @@
 module Api::V1
   class BaseController < Api::BaseController
-    load_and_authorize_resource
 
+    def self.model_name
+      puts 'nullshto'
+      puts self.class.name
+      nil
+    end
 
     # # GET /api/v1/{plural_resource_name}
     def index
@@ -98,5 +102,8 @@ module Api::V1
     def set_resources(resources)
       instance_variable_set("@#{resource_name.pluralize}", resources)
     end
+
+    load_and_authorize_resource class: model_name
+
   end
 end

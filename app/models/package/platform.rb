@@ -1,5 +1,5 @@
 class Package::Platform < ActiveRecord::Base
-  belongs_to :parent, Wow::Package::Platform
+  belongs_to :parent, class_name: Package::Platform
 
   validates_presence_of :name
 
