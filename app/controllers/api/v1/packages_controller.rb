@@ -1,4 +1,6 @@
 class Api::V1::PackagesController < Api::V1::BaseController
+  load_and_authorize_resource
+
   private
 
   def package_params
