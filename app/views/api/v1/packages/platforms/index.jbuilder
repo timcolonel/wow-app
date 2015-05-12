@@ -1,1 +1,0 @@
-json.array! @platforms, partial: 'show', as: :platform

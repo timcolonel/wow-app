@@ -1,1 +1,0 @@
-json.array! @packages, partial: 'show', as: :package

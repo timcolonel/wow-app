@@ -1,6 +1,6 @@
 module Api::V1
   class BaseController < Api::BaseController
-
+    helper_method :get_resource, :get_resources, :resource_name, :resources_name
     # GET /api/v1/{plural_resource_name}
     def index
       set_resources get_resources.page(params[:page]).per(params[:per_page])
@@ -22,13 +22,12 @@ module Api::V1
 
     # PATCH/PUT /api/v1/{plural_resource_name}/:id
     def update
-      if get_resource.update(resource_params)
+      if get_resource.save
         render :show
       else
         render json: get_resource.errors, status: :unprocessable_entity
       end
     end
-
 
     # DELETE /api/v1/{plural_resource_name}/:id
     def destroy
@@ -47,7 +46,7 @@ module Api::V1
     # Returns the resources from the created instance variable
     # @return [Object]
     def get_resources
-      instance_variable_get("@#{resource_name.pluralize}")
+      instance_variable_get("@#{resources_name}")
     end
 
     # Returns the allowed parameters for searching
@@ -74,6 +73,12 @@ module Api::V1
     # @return [String]
     def resource_name
       @resource_name ||= self.controller_name.singularize
+    end
+
+    # The plural name for the resource class based on the controller
+    # @return [String]
+    def resources_name
+      @resources_name ||= self.controller_name.pluralize
     end
 
     # Only allow a trusted parameter "white list" through.

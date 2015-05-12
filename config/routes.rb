@@ -5,9 +5,6 @@ WowApp::Application.routes.draw do
   devise_for :users, :controllers => {:sessions => 'sessions'}
   mount RailsAdmin::Engine => '/admin', :as => 'rails_admin'
 
-
-  get 'authenticity_token' => 'welcome#authenticity_token', :as => :authenticity_token
-
   get 'package/version/index' => 'wow/package_version#index', :as => :wow_package_version
   get 'package/version/upload' => 'wow/package_version#new', :as => :wow_package_version_upload
   post 'package/version/upload' => 'wow/package_version#create'

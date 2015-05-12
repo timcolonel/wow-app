@@ -1,1 +1,0 @@
-json.partial! 'show', tag: @tag

@@ -7,7 +7,7 @@ class Package::Version < ActiveRecord::Base
   validates_presence_of :package_id
   validates_presence_of :platform_id
 
-  validates_uniqueness_of :version, :scope => [:package_id, :platform_id]
+  validates_uniqueness_of :version, scope: [:package_id, :platform_id]
 
   def to_s
     "#{package} #{version}"
