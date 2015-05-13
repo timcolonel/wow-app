@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150511141444) do
+ActiveRecord::Schema.define(version: 20150513091418) do
 
   create_table "package_authors", force: :cascade do |t|
     t.integer  "package_id", limit: 4
@@ -54,7 +54,7 @@ ActiveRecord::Schema.define(version: 20150511141444) do
     t.datetime "updated_at"
   end
 
-  add_index "packages", ["user_id"], name: "index_packages_on_user_id", using: :btree
+  add_index "packages", ["user_id"], name: "index_package_packages_on_user_id", using: :btree
 
   create_table "packages_tags", force: :cascade do |t|
     t.integer  "package_id", limit: 4
@@ -82,8 +82,10 @@ ActiveRecord::Schema.define(version: 20150511141444) do
     t.string   "last_sign_in_ip",        limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "authentication_token",   limit: 255
   end
 
+  add_index "users", ["authentication_token"], name: "index_users_on_authentication_token", using: :btree
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 

@@ -11,7 +11,7 @@ class SessionsController < Devise::SessionsController
     sign_in(resource_name, resource)
     yield resource if block_given?
     if json_request?
-      render json: {message: 'Signed in successfully!'}
+      render json: resource.as_json
     else
       respond_with resource, location: after_sign_in_path_for(resource)
     end

@@ -45,6 +45,7 @@ gem 'mysql2'
 gem 'rails_admin'
 
 gem 'devise'
+gem 'simple_token_authentication'
 
 gem 'bootstrap-sass'
 
@@ -72,5 +73,8 @@ group :development do
   gem 'better_errors'
 end
 
-gem 'factory_girl_rails', group: :test
-gem 'faker', group: :test
+group :test do
+  gem 'factory_girl_rails'
+  gem 'faker'
+  gem 'coveralls'
+end
