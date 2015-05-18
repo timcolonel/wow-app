@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150513091418) do
+ActiveRecord::Schema.define(version: 20150518154654) do
 
   create_table "package_authors", force: :cascade do |t|
     t.integer  "package_id", limit: 4
@@ -32,7 +32,7 @@ ActiveRecord::Schema.define(version: 20150513091418) do
 
   add_index "package_platforms", ["parent_id"], name: "index_package_platforms_on_parent_id", using: :btree
 
-  create_table "package_versions", force: :cascade do |t|
+  create_table "package_releases", force: :cascade do |t|
     t.string   "version",     limit: 255
     t.integer  "package_id",  limit: 4
     t.integer  "platform_id", limit: 4
@@ -41,8 +41,18 @@ ActiveRecord::Schema.define(version: 20150513091418) do
     t.datetime "updated_at"
   end
 
-  add_index "package_versions", ["package_id"], name: "index_package_versions_on_package_id", using: :btree
-  add_index "package_versions", ["platform_id"], name: "index_package_versions_on_platform_id", using: :btree
+  add_index "package_releases", ["package_id"], name: "index_package_releases_on_package_id", using: :btree
+  add_index "package_releases", ["platform_id"], name: "index_package_releases_on_platform_id", using: :btree
+
+  create_table "package_versions", force: :cascade do |t|
+    t.integer  "major",      limit: 4
+    t.integer  "minor",      limit: 4
+    t.integer  "patch",      limit: 4
+    t.integer  "stage",      limit: 4, default: 3
+    t.integer  "identifier", limit: 4
+    t.datetime "created_at",                       null: false
+    t.datetime "updated_at",                       null: false
+  end
 
   create_table "packages", force: :cascade do |t|
     t.string   "name",              limit: 255
@@ -54,7 +64,7 @@ ActiveRecord::Schema.define(version: 20150513091418) do
     t.datetime "updated_at"
   end
 
-  add_index "packages", ["user_id"], name: "index_package_packages_on_user_id", using: :btree
+  add_index "packages", ["user_id"], name: "index_packages_on_user_id", using: :btree
 
   create_table "packages_tags", force: :cascade do |t|
     t.integer  "package_id", limit: 4

@@ -15,7 +15,7 @@ class Package < ActiveRecord::Base
   validates_uniqueness_of :name
   #
   # self.table_name = 'packages'
-  # # For package related table(e.g. Package::Version)
+  # # For package related table(e.g. Package::Release)
   # def self.table_name_prefix
   #   'package_'
   # end

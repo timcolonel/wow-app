@@ -68,6 +68,8 @@ else
   gem 'wow', git: 'https://github.com/timcolonel/wow.git'
 end
 
+gem 'rspec-rails', group: [:development, :test]
+
 group :development do
   gem 'quiet_assets'
   gem 'better_errors'
@@ -77,4 +79,5 @@ group :test do
   gem 'factory_girl_rails'
   gem 'faker'
   gem 'coveralls'
+
 end
