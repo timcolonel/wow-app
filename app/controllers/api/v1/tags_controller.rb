@@ -2,8 +2,7 @@ class Api::V1::TagsController < Api::V1::BaseController
   load_and_authorize_resource
 
   private
-
-  def tags_params
+  def tag_params
     params.permit(:name)
   end
 

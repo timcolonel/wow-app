@@ -21,5 +21,11 @@ module WowApp
     # config.i18n.default_locale = :de
 
     config.autoload_paths << "#{Rails.root}/lib/" if Rails.env.development?
+
+    config.generators do |g|
+      g.orm             :active_record
+      g.template_engine :slim
+      g.test_framework  :spec, fixture: false
+    end
   end
 end
